@@ -4,7 +4,7 @@ import math
 import json
 
 personas = []
-numeropersonas = 20
+numeropersonas = 5
 
 class Persona:
     def __init__(self):
@@ -37,6 +37,8 @@ def guardarPersonas():
     print("guardo a los jugadores")
     cadena = json.dumps([vars(persona) for persona in personas])
     print(cadena)
+    archivo = open("jugadores.json",'w')
+    archivo.write(cadena)
     
 # Creo una ventana
 raiz = tk.Tk()
@@ -49,9 +51,29 @@ lienzo.pack()
 boton = tk.Button(raiz,text="Guarda",command=guardarPersonas)
 boton.pack()
 
-# En la colección introduzco instancias de personas
-for i in range(0,numeropersonas):
+#cargar personas desde el disco duro
+carga = open("jugadores.json",'r')
+cargado = carga.read()
+cargadolista = json.loads(cargado)
+print("es:"+cargado)
+numeropersonas = len(cargadolista)
+print(numeropersonas)
+for elemento in cargadolista:
     personas.append(Persona())
+    print(personas[-1])
+    personas[-1].posx = elemento.posx
+    personas[-1].posy = elemento.posy
+    personas[-1].radio = elemento.radio
+    personas[-1].direccion = elemento.direccion
+    personas[-1].entidad = elemento.entidad
+    
+    
+
+# En la colección introduzco instancias de personas en el caso de que no existan
+if len(personas) == 0:
+    numeropersonas = len(personas)
+    for i in range(0,numeropersonas):
+        personas.append(Persona())
 
 # Para cada una de las personas en la colección las pinto
 for persona in personas:
