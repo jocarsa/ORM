@@ -1,11 +1,18 @@
 import tkinter as tk
+import random
 
 class Persona:
     def __init__(self):
-        self.posx = 512
-        self.posy = 512
+        self.posx = random.randint(0,512)
+        self.posy = random.randint(0,512)
+        self.radio = 30
     def dibuja(self):
-        lienzo.create_oval(30,30,60,60,fill="red")
+        lienzo.create_oval(
+            self.posx-self.radio/2,
+            self.posy-self.radio/2,
+            self.posx+self.radio/2,
+            self.posy+self.radio/2,
+            fill="red")
 
 raiz = tk.Tk()
 
