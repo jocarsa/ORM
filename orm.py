@@ -41,6 +41,10 @@ def guardarPersonas():
     # Guardo los personajes en SQL
     conexion = sqlite3.connect("jugadores.sqlite3")
     cursor = conexion.cursor()
+    cursor.execute('''
+            TRUNCATE jugadores
+            ''')
+    conexion.commit()
     for persona in personas:
         cursor.execute('''
             INSERT INTO jugadores
