@@ -4,7 +4,7 @@ import math
 import json
 
 personas = []
-numeropersonas = 5
+numeropersonas = 50
 
 class Persona:
     def __init__(self):
