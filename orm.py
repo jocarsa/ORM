@@ -73,7 +73,11 @@ try:
     conexion = sqlite3.connect("jugadores.sqlite3")
     cursor = conexion.cursor()
 
-    cursor.execute("SELECT * FROM jugadores")
+    cursor.execute('''
+            SELECT *
+            FROM jugadores
+            WHERE posx < 100
+            ''')
     while True:
         fila = cursor.fetchone()
         if fila is None:
