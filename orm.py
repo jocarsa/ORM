@@ -76,7 +76,9 @@ try:
     cursor.execute('''
             SELECT *
             FROM jugadores
-            WHERE posx < 100
+            WHERE posx < 512
+            AND
+            posy < 512
             ''')
     while True:
         fila = cursor.fetchone()
