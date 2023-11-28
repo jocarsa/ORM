@@ -52,18 +52,20 @@ class Persona:
             self.entidad,
             math.cos(self.direccion),
             math.sin(self.direccion))
+        anchuradescanso = (self.descanso/100)*self.radio
         lienzo.coords(
             self.entidaddescanso,
             self.posx - self.radio/2,
             self.posy - self.radio/2 - 16,
-            self.posx + self.radio/2 - (100-self.energia),
+            self.posx - self.radio/2 + anchuradescanso,
             self.posy - self.radio/2 - 14
         )
+        anchuraenergia = (self.energia/100)*self.radio
         lienzo.coords(
             self.entidadenergia,
             self.posx - self.radio/2,
             self.posy - self.radio/2 - 10,
-            self.posx + self.radio/2 - (100-self.energia),
+            self.posx - self.radio/2 + anchuraenergia,
             self.posy - self.radio/2 - 8
         )
         
