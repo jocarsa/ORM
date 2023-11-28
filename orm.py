@@ -94,7 +94,11 @@ def guardarPersonas():
                 '''+str(persona.radio)+''',
                 '''+str(persona.direccion)+''',
                 "'''+str(persona.color)+'''",
-                "'''+str(persona.entidad)+'''"
+                "'''+str(persona.entidad)+'''",
+                '''+str(persona.energia)+''',
+                '''+str(persona.descanso)+''',
+                "'''+str(persona.entidadenergia)+'''",
+                "'''+str(persona.entidaddescanso)+'''"
             )
             ''')
     conexion.commit()
@@ -133,6 +137,10 @@ try:
         persona.direccion = fila[4]
         persona.color = fila[5]
         persona.entidad = fila[6]
+        persona.energia = fila[7]
+        persona.descanso = fila[8]
+        persona.entidadenergia = fila[9]
+        persona.entidaddescanso = fila[10]
         personas.append(persona)
     conexion.close()
 except:
