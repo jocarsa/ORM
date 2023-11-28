@@ -17,6 +17,10 @@ class Persona:
         self.direccion = random.randint(0,360)
         self.color = "blue"
         self.entidad = ""
+        self.energia = 100
+        self.descanso = 100
+        self.entidadenergia = ""
+        self.entidaddescanso = ""
     def dibuja(self):
         self.entidad = lienzo.create_oval(
             self.posx-self.radio/2,
@@ -24,10 +28,32 @@ class Persona:
             self.posx+self.radio/2,
             self.posy+self.radio/2,
             fill=self.color)
+        self.entidadenergia = lienzo.create_rectangle(
+            self.posx-self.radio/2,
+            self.posy-self.radio/2-10,
+            self.posx+self.radio/2,
+            self.posy-self.radio/2-8,
+            fill="green"
+            )
+        self.entidaddescanso = lienzo.create_rectangle(
+            self.posx-self.radio/2,
+            self.posy-self.radio/2-16,
+            self.posx+self.radio/2,
+            self.posy-self.radio/2-14,
+            fill="blue"
+            )
     def mueve(self):
         self.colisiona()
         lienzo.move(
             self.entidad,
+            math.cos(self.direccion),
+            math.sin(self.direccion))
+        lienzo.move(
+            self.entidadenergia,
+            math.cos(self.direccion),
+            math.sin(self.direccion))
+        lienzo.move(
+            self.entidaddescanso,
             math.cos(self.direccion),
             math.sin(self.direccion))
         self.posx += math.cos(self.direccion)
@@ -42,7 +68,7 @@ def guardarPersonas():
     conexion = sqlite3.connect("jugadores.sqlite3")
     cursor = conexion.cursor()
     cursor.execute('''
-            TRUNCATE jugadores
+            DELETE FROM jugadores 
             ''')
     conexion.commit()
     for persona in personas:
@@ -80,9 +106,7 @@ try:
     cursor.execute('''
             SELECT *
             FROM jugadores
-            WHERE posx < 512
-            AND
-            posy < 512
+            
             ''')
     while True:
         fila = cursor.fetchone()
