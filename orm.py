@@ -79,6 +79,18 @@ try:
         personas.append(persona)
 except:
     print("error")
+
+# cargar personas desde SQL
+conexion = sqlite3.connect("jugadores.sqlite3")
+cursor = conexion.cursor()
+
+cursor.execute("SELECT * FROM jugadores")
+while True:
+    fila = cursor.fetchone()
+    if fila is None:
+        break
+    print(fila)
+conexion.close()
     
 
 # En la colección introduzco instancias de personas en el caso de que no existan
