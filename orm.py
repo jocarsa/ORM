@@ -35,7 +35,8 @@ class Persona():
         self.entidadenergia = ""
         self.entidaddescanso = ""
         self.inventario = []
-        self.inventario.append(Recogible())
+        for i in range(0,10):
+            self.inventario.append(Recogible())
     def dibuja(self):
         self.entidad = lienzo.create_oval(
             self.posx-self.radio/2,
