@@ -119,6 +119,9 @@ def guardarPersonas():
     cursor.execute('''
             DELETE FROM jugadores 
             ''')
+    cursor.execute('''
+            DELETE FROM recogibles 
+            ''')
     conexion.commit()
     for persona in personas:
         cursor.execute('''
@@ -191,15 +194,36 @@ try:
         persona.descanso = fila[8]
         persona.entidadenergia = fila[9]
         persona.entidaddescanso = fila[10]
+        
+        cursor2 = conexion.cursor()
+        nuevapeticion = '''
+            SELECT *
+            FROM recogibles
+            WHERE persona = '''+persona.entidad+'''
+            '''
+        print(nuevapeticion)
+        cursor2.execute(nuevapeticion)
+        while True:
+            fila2 = cursor2.fetchone()
+            if fila2 is None:
+                break
+            nuevorecogible = Recogible()
+            nuevorecogible.posx = fila2[2]
+            nuevorecogible.posy = fila2[3]
+            nuevorecogible.color = fila2[4]
+            persona.inventario.append(nuevorecogible)
+            #pass
+           
         personas.append(persona)
     conexion.close()
-except:
-    print("error al leer base de datos")
+    print(personas)
+except sqlite3.Error as error:
+    print("error al leer base de datos",error)
 
 # En la colección introduzco instancias de personas en el caso de que no existan
 print(len(personas))
 if len(personas) == 0:
-    numeropersonas = 500
+    numeropersonas = 5
     for i in range(0,numeropersonas):
         personas.append(Persona())
 
