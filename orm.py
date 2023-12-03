@@ -80,9 +80,9 @@ def guardarPersonas():
     print("guardo a los jugadores")
     #También guardo en json con fines demostrativos
     cadena = json.dumps([vars(persona) for persona in personas])
-    print(cadena)
     archivo = open("jugadores.json",'w')
     archivo.write(cadena)
+
     # Guardo los personajes en SQL
     conexion = sqlite3.connect("jugadores.sqlite3")
     cursor = conexion.cursor()
