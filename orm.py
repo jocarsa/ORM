@@ -104,7 +104,8 @@ def guardarPersonas():
                 '''+str(persona.energia)+''',
                 '''+str(persona.descanso)+''',
                 "'''+str(persona.entidadenergia)+'''",
-                "'''+str(persona.entidaddescanso)+'''"
+                "'''+str(persona.entidaddescanso)+'''",
+                "'''+str(persona.inventario)+'''"
             )
             ''')
     conexion.commit()
