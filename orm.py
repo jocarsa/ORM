@@ -106,9 +106,11 @@ def guardarPersonas():
     print("guardo a los jugadores")
     #También guardo en json con fines demostrativos
     personas_serializadas = [persona.serializar() for persona in personas]
-    cadena = json.dumps(personas_serializadas)
-    archivo = open("jugadores.json",'w')
-    archivo.write(cadena)
+##    cadena = json.dumps(personas_serializadas)
+##    archivo = open("jugadores.json",'w')
+##    archivo.write(cadena)
+    with open("jugadores.json","w") as archivo:
+        json.dump(personas_serializadas,archivo,indent=4)
 
     # Guardo los personajes en SQL
     conexion = sqlite3.connect("jugadores.sqlite3")
