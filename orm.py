@@ -8,20 +8,28 @@ import sqlite3
 
 personas = []
 numeropersonas = 50
-
-class Persona:
+class Entidad:
     def __init__(self):
         self.posx = random.randint(0,1024)
         self.posy = random.randint(0,1024)
+        self.color = "blue"
+class Recogible(Entidad):
+    def __init__(self):
+        pass
+        
+class Persona(Entidad):
+    def __init__(self):
+        
         self.radio = 30
         self.direccion = random.randint(0,360)
-        self.color = "blue"
+        
         self.entidad = ""
         self.energia = 100
         self.descanso = 100
         self.entidadenergia = ""
         self.entidaddescanso = ""
-        self.inventario = [1,2,3,4]
+        self.inventario = []
+  
     def dibuja(self):
         self.entidad = lienzo.create_oval(
             self.posx-self.radio/2,
