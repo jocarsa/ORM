@@ -8,18 +8,24 @@ import sqlite3
 
 personas = []
 numeropersonas = 50
-class Entidad:
+
+class Recogible():
     def __init__(self):
         self.posx = random.randint(0,1024)
         self.posy = random.randint(0,1024)
         self.color = "blue"
-class Recogible(Entidad):
+    def serializar(self):
+        recogible_serializado = {
+            "posx":self.posx,
+            "posy":self.posy,
+            "color":self.color
+            }
+        return recogible_serializado
+class Persona():
     def __init__(self):
-        pass
-        
-class Persona(Entidad):
-    def __init__(self):
-        
+        self.posx = random.randint(0,1024)
+        self.posy = random.randint(0,1024)
+        self.color = "blue"
         self.radio = 30
         self.direccion = random.randint(0,360)
         
@@ -29,7 +35,7 @@ class Persona(Entidad):
         self.entidadenergia = ""
         self.entidaddescanso = ""
         self.inventario = []
-  
+        self.inventario.append(Recogible())
     def dibuja(self):
         self.entidad = lienzo.create_oval(
             self.posx-self.radio/2,
@@ -83,11 +89,24 @@ class Persona(Entidad):
     def colisiona(self):
         if self.posx < 0 or self.posx > 1024 or self.posy < 0 or self.posy > 1024:
             self.direccion += math.pi
+    def serializar(self):
+        persona_serializada = {
+            "posx":self.posx,
+            "posy":self.posy,
+            "radio":self.radio,
+            "direccion":self.direccion,
+            "color":self.color,
+            "energia":self.energia,
+            "descanso":self.descanso,
+            "inventario":[item.serializar() for item in self.inventario]
+            }
+        return persona_serializada
             
 def guardarPersonas():
     print("guardo a los jugadores")
     #También guardo en json con fines demostrativos
-    cadena = json.dumps([vars(persona) for persona in personas])
+    personas_serializadas = [persona.serializar() for persona in personas]
+    cadena = json.dumps(personas_serializadas)
     archivo = open("jugadores.json",'w')
     archivo.write(cadena)
 
